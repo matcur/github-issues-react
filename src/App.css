@@ -1,5 +1,5 @@
 body {
-    height: 200vh;
+    height: 100vh;
     padding: 0;
     margin: 0;
     background: #0d1117;
@@ -367,6 +367,10 @@ summary::marker {
     font-size: 12px;
 }
 
+.link-count:empty {
+    display: none;
+}
+
 .contribute-notification {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -437,13 +441,9 @@ summary::marker {
     margin-right: 25px;
 }
 
-.issue-name {
-    font-size: 12px;
-    color: #8b949e;
-}
-
 .issue-comment-wrapper {
     color: #8b949e;
+    flex-grow: 1;
 }
 
 .user-name,
@@ -491,7 +491,9 @@ summary::marker {
     outline: none;
 }
 
-.issue-filter {
+.filter-line {
+    display: flex;
+    justify-content: space-between;
     margin-top: 25px;
 }
 
@@ -506,24 +508,24 @@ summary::marker {
     top: 6px;
 }
 
-.filter-tags {
+.tags {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     margin-right: 20px;
 }
 
-.filter-tag {
+.tag {
     background: transparent;
     padding: 5px 16px;
     font-size: 13px;
 }
 
-.filter-tag path {
+.tag path {
     fill: #BEC6CE;
 }
 
-.filter-tag-name {
+.tag-name {
     margin-left: 6px;
     margin-right: 6px;
     font-weight: 700;
@@ -652,7 +654,7 @@ a {
     top: 10px;
     left: -230px;
     width: 300px;
-    height: 480px;
+    max-height: 300px;
     border-radius: 6px;
     border: 1px solid #30363d;
     background: #161b22;
@@ -698,7 +700,7 @@ a {
 .option-items-filter {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-    flex: 1;
+    flex-grow: 1;
     background: #0d1117;
     border: 1px solid #21262d;
     padding: 8px 10px;
@@ -763,7 +765,7 @@ a {
 .issue-info {
     -webkit-box-flex: 3;
     -ms-flex: 3;
-    flex: 3;
+    flex-grow: 3;
     line-height: 1.5;
 }
 
@@ -771,6 +773,7 @@ a {
     font-size: 16px;
     color: #ccc;
     font-weight: 600;
+    white-space:nowrap;
 }
 
 .issue-tag {
@@ -800,7 +803,7 @@ a {
     justify-content: flex-end;
     -webkit-box-flex: 1;
     -ms-flex: 1;
-    flex: 1;
+    flex-grow: 1;
 }
 
 .component-developer-tools {
@@ -851,11 +854,11 @@ div.left-caret {
 }
 
 .previous-page {
-    margin-right: 5px;
+    padding-left: 7px;
 }
 
 .next-page {
-    margin-right: 5px;
+    padding-right: 7px;
 }
 
 .page-navigation {
@@ -865,6 +868,8 @@ div.left-caret {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    font-size: 16px;
+    justify-content: center;
 }
 
 .unavaible-page-navigation {
@@ -904,10 +909,6 @@ div.right-caret {
     display: flex;
 }
 
-.page-navigation {
-    font-size: 16px;
-}
-
 .navigation-padding {
     padding: 5px 12px;
     border: 1px solid transparent;
@@ -924,10 +925,6 @@ div.right-caret {
 
 .page:not(:last-child) {
     margin-right: 5px;
-}
-
-.page-navigation-type {
-    padding: 0 7px;
 }
 
 .tip-block {
