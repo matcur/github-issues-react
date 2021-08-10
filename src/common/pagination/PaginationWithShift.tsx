@@ -4,6 +4,7 @@ import {PaginationShift} from "./PaginationShift";
 import {PreviousNavigation} from "./PreviousNavigation";
 import {NextNavigation} from "./NextNavigation";
 import {range} from "../../utils/range";
+import {BasePagination} from "./BasePagination";
 
 type Props = {
   from: number
@@ -14,6 +15,32 @@ type Props = {
 }
 
 const PaginationWithShift = ({from, to, current, shift, navigateTo}: Props) => {
+  const pageItem = (pageNumber: number | string, key: number) => {
+    if (typeof pageNumber == 'number') {
+      return <PaginationItem
+        key={key}
+        pageNumber={pageNumber}
+        currentNumber={current}
+        onClick={() => navigateTo(pageNumber)}/>
+    }
+
+    return <PaginationShift key={key}/>
+  }
+
+  if (from + shift * 3 > to) {
+    const pages = range(from, to).map((page, index) => pageItem(page, index))
+
+    return (
+      <BasePagination
+        from={from}
+        to={to}
+        current={current}
+        shift={shift}
+        navigateTo={navigateTo}
+        pages={pages}/>
+    )
+  }
+
   const left = []
   const right = []
   const centre = []
@@ -36,36 +63,17 @@ const PaginationWithShift = ({from, to, current, shift, navigateTo}: Props) => {
     right.push(...range(rightShift - 1, to))
   }
 
-  const pages = [...left, ...centre, ...right]
+  const pages = [...left, ...centre, ...right].map((page, index) => pageItem(page, index))
 
-  const pageItem = (pageNumber: number | string, index: number) => {
-    if (typeof pageNumber == 'number') {
-      return <PaginationItem
-        key={index}
-        pageNumber={pageNumber}
-        currentNumber={current}
-        onClick={() => navigateTo(pageNumber)}/>
-    }
-
-    return <PaginationShift key={index}/>
-  }
 
   return (
-    <div className="pagination">
-      <PreviousNavigation
-        from={from}
-        to={to}
-        current={current}
-        navigate={navigateTo}/>
-      <div className="pages">
-        {pages.map((page, index) => pageItem(page, index))}
-      </div>
-      <NextNavigation
-        from={from}
-        to={to}
-        current={current}
-        navigate={navigateTo}/>
-    </div>
+    <BasePagination
+      from={from}
+      to={to}
+      current={current}
+      shift={shift}
+      navigateTo={navigateTo}
+      pages={pages}/>
   )
 }
 
