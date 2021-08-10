@@ -22,7 +22,7 @@ type Props = {
  */
 const Pagination = ({from, to, current, urlFormat}: Props) => {
   const history = useHistory()
-  const shift = 6
+  const shift = 3
 
   const navigateTo = (page: number) => {
     history.push(
@@ -30,20 +30,12 @@ const Pagination = ({from, to, current, urlFormat}: Props) => {
     )
   }
 
-  if (to - current > shift) {
-    return (<PaginationWithShift
-      from={from}
-      to={to + 1}
-      current={current}
-      shift={shift}
-      navigateTo={navigateTo}/>)
-  }
-
-  return <SimplePagination
+  return (<PaginationWithShift
     from={from}
-    to={to + 1}
+    to={to}
     current={current}
-    navigateTo={navigateTo}/>
+    shift={shift}
+    navigateTo={navigateTo}/>)
 }
 
 export {Pagination}

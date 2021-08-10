@@ -37,6 +37,18 @@ const Issues = () => {
     {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
     {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
     {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
+    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
   ]
   const perPage = 1
 

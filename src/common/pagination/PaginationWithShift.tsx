@@ -3,6 +3,7 @@ import {PaginationItem} from "./PaginationItem";
 import {PaginationShift} from "./PaginationShift";
 import {PreviousNavigation} from "./PreviousNavigation";
 import {NextNavigation} from "./NextNavigation";
+import {range} from "../../utils/range";
 
 type Props = {
   from: number
@@ -13,10 +14,29 @@ type Props = {
 }
 
 const PaginationWithShift = ({from, to, current, shift, navigateTo}: Props) => {
-  const shiftPageNumber = from + shift > current ? from + shift : current + shift - 2
+  const left = []
+  const right = []
+  const centre = []
+  const leftShift = from + shift
+  const rightShift = to - shift
 
-  const leftPart = [...Array(shiftPageNumber).keys()].map(i => i + 1)
-  const pages = [...leftPart, '...', to - 2, to - 1]
+  if (current > leftShift) {
+    left.push(...range(from, leftShift - 1), '...')
+  } else {
+    left.push(...range(from, leftShift + 1))
+  }
+
+  if (current > leftShift && current < rightShift) {
+    centre.push(...range(current - 1, current + 1))
+  }
+
+  if (current < rightShift) {
+    right.push('...', ...range(rightShift + 1, to))
+  } else {
+    right.push(...range(rightShift - 1, to))
+  }
+
+  const pages = [...left, ...centre, ...right]
 
   const pageItem = (pageNumber: number | string, index: number) => {
     if (typeof pageNumber == 'number') {
