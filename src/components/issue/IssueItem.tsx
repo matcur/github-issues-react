@@ -17,7 +17,7 @@ const IssueItem = ({item}: Props) => {
         </svg>
       </div>
       <div className="issue-info">
-        <span className="issue-name">{item.title}</span>
+        <div className="issue-name">{item.title}</div>
         <span className="issue-title">
           {item.tags.map((tag, index) => <IssueTag key={index} tagName={tag.name}/>)}
         </span>
