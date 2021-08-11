@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {useHistory, useParams } from "react-router-dom"
 import {RepositoryName} from "../components/repository/RepositoryName";
 import {RepositoryStats} from "../components/repository/RepositoryStats";
@@ -50,7 +50,14 @@ const Issues = () => {
     {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
     {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
   ]
-  const perPage = 1
+  const perPage = 2
+
+  const [filtered, setFiltered] = useState(issues)
+  const filter = (value: string) => {
+    setFiltered(
+      issues.filter(issue => issue.title.indexOf(value) !== -1)
+    )
+  }
 
   return (
     <div>
@@ -59,15 +66,16 @@ const Issues = () => {
         repository={repository}/>
       <PinnedIssues list={[issues[0]]}/>
       <div className="filter-line container inner-container">
-        <IssueFilter/>
+        <IssueFilter
+          onFilterChange={filter}/>
         <IssueTagCategories labels={55000} milestones={123}/>
         <NewIssueBtn onClick={() => {}}/>
       </div>
-      <IssuesBlock issues={issues.slice(perPage * (currentPage - 1), perPage * currentPage)}/>
+      <IssuesBlock issues={filtered.slice(perPage * (currentPage - 1), perPage * currentPage)}/>
       <div className="container">
         <Pagination
           from={1}
-          to={Math.ceil(issues.length / perPage)}
+          to={Math.ceil(filtered.length / perPage)}
           current={currentPage}
           urlFormat={paginationUrl}/>
       </div>
