@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {useHistory, useParams } from "react-router-dom"
 import {RepositoryName} from "../components/repository/RepositoryName";
 import {RepositoryStats} from "../components/repository/RepositoryStats";
@@ -15,49 +15,35 @@ import { useQuery } from "../hooks/useQuery";
 import {useCurrentPage} from "../hooks/useCurrentPage";
 import {TipBlock} from "../common/TipBlock";
 import {RepositoryDetails} from "../components/repository/RepositoryDetails";
+import {Repository} from "../resources/Repository";
+import {nullIssue} from "../nullobjects";
 
 const Issues = () => {
   const query = useQuery();
   const currentPage = useCurrentPage()
   const {owner, repository} = useParams<{owner: string, repository: string}>()
 
-  const paginationUrl = `/${owner}/${repository}/issues?current-page=:page`
+  const [issues, setIssues] = useState<Issue[]>([nullIssue])
+  const [filterText, setFilterText] =useState('')
 
-  const jon: User = {name: 'Jon'}
-  const comments = [{content: 'The solve', author: jon}, {content: 'The solve', author: jon}]
-  const tags = [{name: 'Component: Developer Tools'}, {name: 'Status: Unconfirmed'}, {name: 'Type: Bug'}, {name: 'React'}]
-  const issues: Issue[] = [
-    {title: '1[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '2[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '3[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '4[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '5[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '6[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-    {title: '7[DevTools Bug]: React Devtools on Firefox initially shows an empty (blank) component tree', number: 1234, creationDate: new Date(), status: 'open', author: jon, comments, tags},
-  ]
-  const perPage = 2
-
-  const [filtered, setFiltered] = useState(issues)
   const filter = (value: string) => {
-    setFiltered(
-      issues.filter(issue => issue.title.indexOf(value) !== -1)
+    return issues.filter(
+      issue => issue.title.indexOf(value) !== -1
     )
   }
+  const paginationUrl = `/${owner}/${repository}/issues?current-page=:page`
+  const perPage = 2
+  const filtered = filter(filterText)
+
+  useEffect(() => {
+    async function load() {
+      setIssues(
+        await new Repository(1).issues()
+      )
+    }
+
+    load()
+  }, [])
 
   return (
     <div>
@@ -67,7 +53,7 @@ const Issues = () => {
       <PinnedIssues list={[issues[0]]}/>
       <div className="filter-line container inner-container">
         <IssueFilter
-          onFilterChange={filter}/>
+          onFilterChange={setFilterText}/>
         <IssueTagCategories labels={55000} milestones={123}/>
         <NewIssueBtn onClick={() => {}}/>
       </div>
